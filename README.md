@@ -1,6 +1,6 @@
 # Dubai Real Estate Expo
 
-A modern, responsive website for the Dubai Real Estate Expo featuring exhibitors, properties, speakers, and event information.
+A modern, high-contrast landing page for the Dubai Real Estate Expo built with Next.js 15, React 19, and Tailwind CSS.
 
 ## 🚀 Quick Start
 
@@ -8,101 +8,115 @@ A modern, responsive website for the Dubai Real Estate Expo featuring exhibitors
 
 - Node.js 18+
 - npm or pnpm
-- Git
 
 ### Installation
 
-1. **Clone the repository**
+```bash
+# Clone the repository
+git clone <repository-url>
+cd dubai-real-estate-expo
 
-   ```bash
-   git clone <repository-url>
-   cd dubai-real-estate-expo
-   ```
+# Install dependencies
+npm install
+# or
+pnpm install
+```
 
-2. **Install dependencies**
-
-   ```bash
-   npm install
-   # or
-   pnpm install
-   ```
-
-3. **Run development server**
-
-   ```bash
-   npm run dev
-   # or
-   pnpm dev
-   ```
-
-4. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
-
-## 🏗️ Build Instructions
-
-### Standard Build
+### Development
 
 ```bash
-# Production build
+# Start development server
+npm run dev
+# or
+pnpm dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view the application.
+
+## 🏗️ Building for Production
+
+### Option 1: Safe Build (Recommended)
+
+This disables CSS optimization to avoid potential build issues:
+
+```bash
+npm run build:safe
+# or
+pnpm run build:safe
+```
+
+### Option 2: Standard Build
+
+```bash
 npm run build
+# or
+pnpm run build
+```
+
+### Option 3: Custom Build Script
+
+```bash
+npm run build:custom
+# or
+pnpm run build:custom
+```
+
+### Option 4: Build and Start
+
+```bash
+npm run build:start
+# or
+pnpm run build:start
+```
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+
+1. Connect your repository to Vercel
+2. Vercel will automatically detect Next.js and deploy
+3. The build should work with the current configuration
+
+### Manual Deployment
+
+```bash
+# Build the project
+npm run build:safe
 
 # Start production server
-npm run start
+npm start
 ```
 
-### Custom Build Script
+## 🔧 Troubleshooting
 
-```bash
-# Run custom build with additional steps
-npm run build:custom
-```
+### Build Issues
 
-This script includes:
+If you encounter build errors related to `critters` or CSS optimization:
 
-- Environment validation
-- Dependency installation
-- Linting
-- Build process
-- Build analysis
-- Deployment script generation
+1. **Use the safe build command:**
 
-### Build Variants
+   ```bash
+   npm run build:safe
+   ```
 
-```bash
-# Build with bundle analysis
-npm run build:analyze
+2. **Or set environment variable:**
 
-# Production build with environment
-npm run build:production
+   ```bash
+   ENABLE_CSS_OPTIMIZATION=false npm run build
+   ```
 
-# Type checking
-npm run type-check
+3. **Clean and reinstall:**
+   ```bash
+   npm run clean
+   npm install
+   npm run build:safe
+   ```
 
-# Clean build (removes .next and node_modules)
-npm run clean
-```
+### Common Issues
 
-## 🐳 Docker Deployment
-
-### Build Docker Image
-
-```bash
-# Build the Docker image
-docker build -t dubai-real-estate-expo .
-
-# Run the container
-docker run -p 3000:3000 dubai-real-estate-expo
-```
-
-### Docker Compose
-
-```bash
-# Development
-docker-compose up
-
-# Production (with nginx)
-docker-compose --profile production up -d
-```
+- **Missing critters module**: Use `build:safe` command or install critters manually
+- **CSS optimization errors**: Disable CSS optimization in Next.js config
+- **Peer dependency warnings**: These are warnings and won't affect the build
 
 ## 📁 Project Structure
 
@@ -112,157 +126,48 @@ dubai-real-estate-expo/
 │   ├── api/               # API routes
 │   ├── globals.css        # Global styles
 │   ├── layout.jsx         # Root layout
-│   └── page.jsx           # Home page
+│   ├── page.jsx           # Home page
+│   ├── error.jsx          # Error page
+│   └── not-found.jsx      # 404 page
 ├── components/            # React components
-│   ├── ui/               # UI components (shadcn/ui)
-│   ├── about.jsx         # About section
-│   ├── contact.jsx       # Contact section
-│   ├── exhibitors.jsx    # Exhibitors section
-│   ├── hero.jsx          # Hero section
-│   ├── navbar.jsx        # Navigation
-│   └── ...               # Other sections
+│   ├── ui/               # UI components
+│   └── *.jsx            # Page components
 ├── public/               # Static assets
-│   └── images/           # Image files
-├── lib/                  # Utility functions
-├── hooks/                # Custom React hooks
-├── styles/               # Additional styles
-├── build.js              # Custom build script
-├── Dockerfile            # Docker configuration
-├── docker-compose.yml    # Docker Compose setup
-└── next.config.mjs       # Next.js configuration
+├── scripts/              # Build scripts
+├── next.config.mjs       # Next.js configuration
+└── package.json          # Dependencies and scripts
 ```
 
-## 🔧 Configuration
+## 🛠️ Technologies Used
 
-### Environment Variables
+- **Framework**: Next.js 15
+- **UI Library**: React 19
+- **Styling**: Tailwind CSS 4
+- **UI Components**: Radix UI
+- **Icons**: Lucide React
+- **Animations**: Framer Motion
+- **Forms**: React Hook Form + Zod
+- **Deployment**: Vercel
 
-Create a `.env.local` file in the root directory:
-
-```env
-# App Configuration
-NEXT_PUBLIC_APP_NAME="Dubai Real Estate Expo"
-NEXT_PUBLIC_APP_URL="http://localhost:3000"
-NEXT_PUBLIC_API_URL="http://localhost:3000/api"
-
-# Build Configuration
-NODE_ENV=production
-NEXT_TELEMETRY_DISABLED=1
-
-# Optional: Analytics
-# NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=""
-# NEXT_PUBLIC_POSTHOG_KEY=""
-```
-
-### Next.js Configuration
-
-The `next.config.mjs` includes:
-
-- Standalone output for Docker
-- Image optimization
-- Security headers
-- Bundle optimization
-- Experimental features
-
-## 📊 Build Analysis
-
-After building, you can analyze the bundle:
-
-```bash
-# Install bundle analyzer
-npm install --save-dev @next/bundle-analyzer
-
-# Run analysis
-npm run build:analyze
-```
-
-## 🚀 Deployment
-
-### Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Deploy automatically
-
-### Manual Deployment
-
-```bash
-# Build the project
-npm run build
-
-# Start production server
-npm run start:production
-```
-
-### Docker Deployment
-
-```bash
-# Build and run with Docker
-docker build -t dubai-real-estate-expo .
-docker run -p 3000:3000 dubai-real-estate-expo
-
-# Or use Docker Compose
-docker-compose up -d
-```
-
-## 🛠️ Development
-
-### Available Scripts
+## 📝 Available Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
-- `npm run start` - Start production server
+- `npm run build:safe` - Build with CSS optimization disabled
+- `npm run build:custom` - Use custom build script
+- `npm run build:start` - Build and start production server
+- `npm start` - Start production server
 - `npm run lint` - Run ESLint
-- `npm run lint:fix` - Fix ESLint issues
-- `npm run type-check` - Run TypeScript type checking
-- `npm run clean` - Clean build artifacts
-
-### Code Quality
-
-The project includes:
-
-- ESLint for code linting
-- TypeScript for type safety
-- Prettier for code formatting
-- Husky for git hooks (optional)
-
-## 📱 Features
-
-- **Responsive Design** - Mobile-first approach
-- **Modern UI** - Built with shadcn/ui components
-- **Performance Optimized** - Next.js 15 with App Router
-- **SEO Friendly** - Meta tags and structured data
-- **Accessible** - WCAG compliant components
-- **Internationalization Ready** - Multi-language support structure
-
-## 🎨 Styling
-
-The project uses:
-
-- **Tailwind CSS** - Utility-first CSS framework
-- **shadcn/ui** - Modern component library
-- **Framer Motion** - Animation library
-- **Lucide React** - Icon library
-
-## 📄 License
-
-This project is licensed under the MIT License.
+- `npm run clean` - Clean and reinstall dependencies
 
 ## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Run tests and linting
+4. Test the build with `npm run build:safe`
 5. Submit a pull request
 
-## 📞 Support
+## 📄 License
 
-For support and questions:
-
-- Create an issue on GitHub
-- Contact the development team
-- Check the documentation
-
----
-
-Built with ❤️ for the Dubai Real Estate Expo
+This project is licensed under the MIT License.

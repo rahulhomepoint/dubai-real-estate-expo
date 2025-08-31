@@ -23,7 +23,9 @@ const nextConfig = {
 
   // Experimental Features
   experimental: {
-    optimizeCss: true,
+    optimizeCss:
+      process.env.NODE_ENV === "production" &&
+      process.env.ENABLE_CSS_OPTIMIZATION === "true",
     optimizePackageImports: ["lucide-react"],
   },
 
@@ -85,6 +87,14 @@ const nextConfig = {
         },
       };
     }
+
+    // Handle potential module resolution issues
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      net: false,
+      tls: false,
+    };
 
     return config;
   },
